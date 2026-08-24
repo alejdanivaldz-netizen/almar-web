@@ -12,11 +12,15 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almarserviciosfluviales.com.py/">
 <meta property="og:image" content="https://almarserviciosfluviales.com.py/assets/hero.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="900">
 <meta property="og:locale" content="es_PY">
-<link rel="icon" type="image/png" href="assets/almar-logo-color.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#2D7D32; --primary-dark:#0E3D14; --primary-mid:#1B5E20; --primary-light:#66BB6A;
@@ -55,10 +59,12 @@ nav a:hover{color:var(--primary-light)}
 .menu-btn span{display:block;height:2.5px;width:24px;background:#fff;border-radius:2px;transition:.3s}
 header.scrolled .menu-btn span{background:var(--text)}
 
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
-  background:linear-gradient(180deg,rgba(8,30,14,.82) 0%,rgba(14,61,20,.62) 45%,rgba(14,61,20,.9) 100%), url('assets/hero.jpg');
-  background-size:cover;background-position:center}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:90px;
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--primary-dark)}
+.hero-bg{position:absolute;inset:0;z-index:0;line-height:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(8,30,14,.82) 0%,rgba(14,61,20,.62) 45%,rgba(14,61,20,.9) 100%)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:90px;z-index:1;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'%3E%3Cpath fill='%23FFFFFF' d='M0,40 C240,90 480,0 720,35 C960,70 1200,10 1440,45 L1440,90 L0,90 Z'/%3E%3C/svg%3E") no-repeat;background-size:cover}
 .hero-inner{padding-top:120px;padding-bottom:130px;position:relative;z-index:2;max-width:800px}
 .hero .eyebrow{color:var(--primary-light);opacity:0;animation:rise .8s .15s forwards}
@@ -111,8 +117,9 @@ header.scrolled .menu-btn span{background:var(--text)}
 @keyframes pinpop{0%{transform:translate(-50%,-100%) scale(0);opacity:0}60%{transform:translate(-50%,-100%) scale(1.18);opacity:1}100%{transform:translate(-50%,-100%) scale(1);opacity:1}}
 .map-pin svg{width:100%;height:100%;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
 .map-pin .pulse{position:absolute;left:50%;top:78%;width:14px;height:14px;border-radius:50%;background:rgba(229,57,53,.5);transform:translate(-50%,-50%);z-index:-1}
-.map-pin.pop .pulse{animation:pinpulse 1.8s ease-out .5s infinite}
-@keyframes pinpulse{0%{box-shadow:0 0 0 0 rgba(229,57,53,.45)}70%{box-shadow:0 0 0 16px rgba(229,57,53,0)}100%{box-shadow:0 0 0 0 rgba(229,57,53,0)}}
+.map-pin .pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(229,57,53,.45);opacity:0}
+.map-pin.pop .pulse::after{animation:pinpulse 1.8s ease-out .5s infinite}
+@keyframes pinpulse{0%{transform:scale(1);opacity:.9}70%{transform:scale(3.3);opacity:0}100%{transform:scale(3.3);opacity:0}}
 .map-tip{position:absolute;left:50%;bottom:118%;transform:translateX(-50%);white-space:nowrap;background:#fff;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.82rem;padding:5px 11px;border-radius:8px;box-shadow:var(--shadow-sm);opacity:0;transition:opacity .2s;pointer-events:none}
 .map-tip::after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#fff}
 .map-pin:hover .map-tip{opacity:1}
@@ -126,7 +133,7 @@ header.scrolled .menu-btn span{background:var(--text)}
 .value h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.18rem;color:var(--primary-mid);margin-bottom:6px}
 .value p{font-size:.93rem;margin:0}
 .about-figure{position:relative}
-.about-figure img{width:100%;border-radius:22px;box-shadow:var(--shadow);display:block}
+.about-figure img{width:100%;height:auto;border-radius:22px;box-shadow:var(--shadow);display:block}
 .exp-chip{position:absolute;right:-14px;top:-14px;background:var(--primary);color:#fff;border-radius:18px;padding:18px 22px;box-shadow:var(--shadow);text-align:center}
 .exp-chip .n{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1}
 .exp-chip .t{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;margin-top:4px}
@@ -157,19 +164,26 @@ form .btn{width:100%;justify-content:center;margin-top:8px}
 footer{background:#081d0c;color:rgba(255,255,255,.6);padding:54px 0 30px}
 .foot-top{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.1)}
 .foot-brand{display:flex;align-items:center;gap:14px}
-.foot-brand img{height:74px}
+.foot-brand img{height:74px;width:auto}
 .foot-links{display:flex;gap:26px;flex-wrap:wrap}
 .foot-links a{color:rgba(255,255,255,.7);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:.95rem;transition:.2s}
 .foot-links a:hover{color:var(--primary-light)}
 .foot-bottom{padding-top:24px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.85rem}
 .foot-legal{color:rgba(255,255,255,.45)}
 
-.wa-float{position:fixed;right:22px;bottom:22px;z-index:90;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -8px rgba(37,211,102,.7);transition:transform .25s;animation:pulse 2.4s infinite}
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:90;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -8px rgba(37,211,102,.7);transition:transform .25s}
+.wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(37,211,102,.5);z-index:-1;animation:pulse 2.4s ease-out infinite}
 .wa-float:hover{transform:scale(1.1)}
 .wa-float svg{width:32px;height:32px;fill:#fff}
-@keyframes pulse{0%{box-shadow:0 10px 30px -8px rgba(37,211,102,.7),0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 10px 30px -8px rgba(37,211,102,.7),0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 10px 30px -8px rgba(37,211,102,.7),0 0 0 0 rgba(37,211,102,0)}}
+@keyframes pulse{0%{transform:scale(1);opacity:1}70%{transform:scale(1.55);opacity:0}100%{transform:scale(1.55);opacity:0}}
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s,transform .7s}
 .reveal.show{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .hero .eyebrow,.hero h1,.hero p.lead,.hero-actions,.hero-meta,.reveal{opacity:1;transform:none}
+  .mapwrap,.mapwrap.show{transform:none}.map-pin{transform:translate(-50%,-100%) scale(1);opacity:1}
+}
 
 @media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.zonas .grid,.about .grid,.contact .grid{grid-template-columns:1fr;gap:42px}.about-figure{order:-1}.exp-chip{right:14px;top:14px}}
 @media(max-width:680px){
@@ -182,7 +196,7 @@ footer{background:#081d0c;color:rgba(255,255,255,.6);padding:54px 0 30px}
   .menu-btn.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
   header.scrolled .menu-btn.open span{background:#fff}
   .cards{grid-template-columns:1fr}.row2{grid-template-columns:1fr}.hero-meta{gap:26px}
-  .mapwrap,.mapwrap.show{transform:none}.mapstage{perspective:none}
+  .mapwrap,.mapwrap.show{transform:none;filter:none}.mapstage{perspective:none}
 }
 </style>
 </head>
@@ -191,8 +205,8 @@ footer{background:#081d0c;color:rgba(255,255,255,.6);padding:54px 0 30px}
 <header id="header">
   <div class="wrap nav">
     <a href="#inicio" class="brand" id="brand">
-      <img class="logo-white" src="assets/almar-logo-blanco.png" alt="ALMAR Servicios Fluviales">
-      <img class="logo-color" src="assets/almar-logo-color.png" alt="ALMAR Servicios Fluviales" aria-hidden="true">
+      <img class="logo-white" src="assets/almar-logo-blanco.png" width="340" height="215" alt="ALMAR Servicios Fluviales">
+      <img class="logo-color" src="assets/almar-logo-color.png" width="340" height="215" alt="" aria-hidden="true">
     </a>
     <button class="menu-btn" id="menuBtn" aria-label="Menú"><span></span><span></span><span></span></button>
     <nav><ul id="navList">
@@ -205,6 +219,11 @@ footer{background:#081d0c;color:rgba(255,255,255,.6);padding:54px 0 30px}
 </header>
 
 <section class="hero" id="inicio">
+  <picture class="hero-bg">
+    <source type="image/webp" media="(max-width:768px)" srcset="assets/hero-960.webp">
+    <source type="image/webp" srcset="assets/hero-1600.webp">
+    <img src="assets/hero.jpg" width="1200" height="900" alt="" fetchpriority="high" decoding="async">
+  </picture>
   <div class="wrap hero-inner">
     <p class="eyebrow">Agencia marítima · Paraguay</p>
     <h1>Tu agencia marítima <em>de confianza</em></h1>
@@ -254,7 +273,7 @@ footer{background:#081d0c;color:rgba(255,255,255,.6);padding:54px 0 30px}
 <linearGradient id="fill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfe7c9"/><stop offset="1" stop-color="#9ed3ab"/></linearGradient>
 <linearGradient id="riv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6FA8E8"/><stop offset="1" stop-color="#4A86D6"/></linearGradient>
 <filter id="ds" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0e3d14" flood-opacity="0.25"/></filter>
-</defs><g opacity="0.95"><path d="M408.5,293.2 L402.6,298.6 L397.1,317.9 L371.3,324.3 L377.1,326.2 L381.6,328.7 L392.0,329.8 L384.9,331.9 L372.6,334.6 L386.9,336.1 L386.9,336.1 L379.4,340.4 L388.5,344.6 L396.9,350.0 L397.3,357.7 L387.3,364.6 L374.3,369.5 L365.2,371.3 L360.5,375.4 L360.5,384.7 L363.4,403.1 L361.9,412.5 L359.0,420.7 L339.7,451.4 L335.8,460.6 L337.8,467.8 L351.7,479.6 L349.8,485.5 L341.7,490.9 L339.9,495.5 L338.3,505.5 L335.1,514.4 L333.3,523.1 L335.6,532.9 L338.7,536.1 L351.7,544.6 L355.2,549.0 L360.2,557.1 L363.4,560.3 L359.7,563.9 L349.9,570.3 L347.7,572.1 L347.8,578.9 L350.7,584.0 L354.0,588.6 L324.7,592.6 L322.9,593.3 L355.6,593.8 L327.7,594.6 L352.6,597.3 L345.8,597.7 L319.9,599.9 L317.3,610.8 L315.8,655.6 L313.6,658.5 L302.3,659.1 L309.3,659.2 L292.8,661.6 L293.6,667.4 L298.2,674.0 L300.3,678.7 L272.5,681.8 L262.9,684.5 L282.7,684.8 L292.4,686.2 L255.8,697.1 L262.7,705.1 L273.1,712.2 L276.8,722.2 L269.2,727.9 L256.4,728.9 L242.9,729.9 L237.2,735.3 L231.9,742.6 L219.5,747.1 L194.1,753.2 L185.1,758.8 L180.4,766.1 L181.5,773.7 L190.1,780.6 L185.6,788.8 L175.4,800.0 L170.2,808.1 L168.2,812.6 L150.3,815.2 L150.2,815.3 L167.1,816.5 L153.5,817.7 L144.9,818.0 L154.9,821.9 L141.3,822.1 L154.9,824.1 L155.4,825.6 L166.6,826.1 L138.6,826.3 L159.5,828.0 L159.6,828.1 L164.4,829.0 L136.7,830.9 L135.3,835.9 L135.1,846.2 L136.2,855.1 L133.4,861.1 L104.3,865.6 L91.2,872.5 L82.9,884.2 L80.0,900.8 L83.5,908.2 L91.3,915.1 L105.5,924.6 L112.6,935.6 L321.3,942.1 L427.4,943.2 L113.6,947.3 L392.7,948.9 L384.2,949.3 L164.8,954.4 L113.5,974.2 L111.2,975.7 L111.1,976.1" fill="none" stroke="#bcd6f5" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M408.5,293.2 L402.6,298.6 L397.1,317.9 L371.3,324.3 L377.1,326.2 L381.6,328.7 L392.0,329.8 L384.9,331.9 L372.6,334.6 L386.9,336.1 L386.9,336.1 L379.4,340.4 L388.5,344.6 L396.9,350.0 L397.3,357.7 L387.3,364.6 L374.3,369.5 L365.2,371.3 L360.5,375.4 L360.5,384.7 L363.4,403.1 L361.9,412.5 L359.0,420.7 L339.7,451.4 L335.8,460.6 L337.8,467.8 L351.7,479.6 L349.8,485.5 L341.7,490.9 L339.9,495.5 L338.3,505.5 L335.1,514.4 L333.3,523.1 L335.6,532.9 L338.7,536.1 L351.7,544.6 L355.2,549.0 L360.2,557.1 L363.4,560.3 L359.7,563.9 L349.9,570.3 L347.7,572.1 L347.8,578.9 L350.7,584.0 L354.0,588.6 L324.7,592.6 L322.9,593.3 L355.6,593.8 L327.7,594.6 L352.6,597.3 L345.8,597.7 L319.9,599.9 L317.3,610.8 L315.8,655.6 L313.6,658.5 L302.3,659.1 L309.3,659.2 L292.8,661.6 L293.6,667.4 L298.2,674.0 L300.3,678.7 L272.5,681.8 L262.9,684.5 L282.7,684.8 L292.4,686.2 L255.8,697.1 L262.7,705.1 L273.1,712.2 L276.8,722.2 L269.2,727.9 L256.4,728.9 L242.9,729.9 L237.2,735.3 L231.9,742.6 L219.5,747.1 L194.1,753.2 L185.1,758.8 L180.4,766.1 L181.5,773.7 L190.1,780.6 L185.6,788.8 L175.4,800.0 L170.2,808.1 L168.2,812.6 L150.3,815.2 L150.2,815.3 L167.1,816.5 L153.5,817.7 L144.9,818.0 L154.9,821.9 L141.3,822.1 L154.9,824.1 L155.4,825.6 L166.6,826.1 L138.6,826.3 L159.5,828.0 L159.6,828.1 L164.4,829.0 L136.7,830.9 L135.3,835.9 L135.1,846.2 L136.2,855.1 L133.4,861.1 L104.3,865.6 L91.2,872.5 L82.9,884.2 L80.0,900.8 L83.5,908.2 L91.3,915.1 L105.5,924.6 L112.6,935.6 L321.3,942.1 L427.4,943.2 L113.6,947.3 L392.7,948.9 L384.2,949.3 L164.8,954.4 L113.5,974.2 L111.2,975.7 L111.1,976.1" fill="none" stroke="url(#riv)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M80.0,900.8 L82.9,884.2 L83.5,908.2 L91.2,872.5 L91.3,915.1 L104.3,865.6 L105.5,924.6 L111.1,976.1 L111.2,975.7 L112.6,935.6 L113.5,974.2 L113.6,947.3 L133.4,861.1 L135.1,846.2 L135.3,835.9 L136.2,855.1 L136.7,830.9 L138.6,826.3 L141.3,822.1 L144.9,818.0 L150.2,815.3 L150.3,815.2 L153.5,817.7 L154.9,821.9 L154.9,824.1 L155.4,825.6 L159.5,828.0 L159.6,828.1 L164.4,829.0 L164.8,954.4 L166.6,826.1 L167.1,816.5 L168.2,812.6 L170.2,808.1 L175.4,800.0 L185.6,788.8 L190.1,780.6 L321.3,942.1 L384.2,949.3 L392.7,948.9 L427.4,943.2 L445.5,943.7 L445.5,943.7 L456.1,945.7 L490.1,952.2 L490.3,952.2 L507.9,958.9 L515.9,960.4 L541.4,965.3 L541.6,965.4 L566.2,972.9 L566.4,972.9 L625.1,983.9 L631.5,986.0 L631.7,986.0 L724.8,1028.4 L733.9,1031.2 L737.7,1032.3 L752.4,1033.6 L790.3,819.9 L794.6,822.0 L810.4,1026.2 L825.5,1026.2 L827.8,1026.7 L840.0,1029.7 L845.1,1032.7 L854.4,1041.0 L854.7,1040.3 L865.2,1002.1 L899.2,836.2 L915.6,840.4 L916.5,871.3 L920.0,849.4" fill="none" stroke="#bcd6f5" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M80.0,900.8 L82.9,884.2 L83.5,908.2 L91.2,872.5 L91.3,915.1 L104.3,865.6 L105.5,924.6 L111.1,976.1 L111.2,975.7 L112.6,935.6 L113.5,974.2 L113.6,947.3 L133.4,861.1 L135.1,846.2 L135.3,835.9 L136.2,855.1 L136.7,830.9 L138.6,826.3 L141.3,822.1 L144.9,818.0 L150.2,815.3 L150.3,815.2 L153.5,817.7 L154.9,821.9 L154.9,824.1 L155.4,825.6 L159.5,828.0 L159.6,828.1 L164.4,829.0 L164.8,954.4 L166.6,826.1 L167.1,816.5 L168.2,812.6 L170.2,808.1 L175.4,800.0 L185.6,788.8 L190.1,780.6 L321.3,942.1 L384.2,949.3 L392.7,948.9 L427.4,943.2 L445.5,943.7 L445.5,943.7 L456.1,945.7 L490.1,952.2 L490.3,952.2 L507.9,958.9 L515.9,960.4 L541.4,965.3 L541.6,965.4 L566.2,972.9 L566.4,972.9 L625.1,983.9 L631.5,986.0 L631.7,986.0 L724.8,1028.4 L733.9,1031.2 L737.7,1032.3 L752.4,1033.6 L790.3,819.9 L794.6,822.0 L810.4,1026.2 L825.5,1026.2 L827.8,1026.7 L840.0,1029.7 L845.1,1032.7 L854.4,1041.0 L854.7,1040.3 L865.2,1002.1 L899.2,836.2 L915.6,840.4 L916.5,871.3 L920.0,849.4" fill="none" stroke="url(#riv)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M386.9,336.1 L392.0,329.8 L397.1,317.9 L402.6,298.6 L408.5,293.2 L445.8,280.8 L464.9,271.0 L531.3,226.0 L538.7,216.8 L538.8,209.2 L512.2,202.1 L516.6,193.4 L536.7,178.5 L540.2,174.1 L543.5,167.5 L542.9,161.5 L529.8,157.0 L528.1,153.0 L529.8,149.0 L541.9,144.8 L553.9,139.0 L561.7,133.8 L563.7,134.7 L577.5,137.5 L580.4,136.5 L583.6,134.7 L584.3,132.2 L584.5,128.2 L583.8,118.5 L584.2,113.8 L585.6,111.3 L587.9,109.5 L590.6,109.0 L593.6,109.3 L605.1,113.1 L609.0,113.7 L612.5,113.4 L624.7,110.9 L628.3,110.8 L632.1,112.5 L636.6,116.0 L644.4,125.4 L652.2,132.9 L664.8,143.0 L678.2,150.8 L693.4,162.5 L699.4,165.6 L711.1,170.2 L713.6,172.8 L715.5,176.4 L716.3,182.4 L718.1,187.4 L721.2,193.0 L735.7,210.2 L743.3,226.5 L759.3,310.2 L758.6,316.1 L756.1,320.2 L679.8,389.0 L657.6,427.8 L650.9,436.8 L638.6,445.4 L627.3,457.0 L667.9,668.6 L671.5,678.7 L676.6,689.9 L724.2,750.7 L790.3,819.9 L794.6,822.0 L899.2,836.2 L915.6,840.4 L920.0,849.4 L916.5,871.3 L865.2,1002.1 L854.7,1040.3 L854.4,1041.0 L845.1,1032.7 L840.0,1029.7 L827.8,1026.7 L825.5,1026.2 L810.4,1026.2 L752.4,1033.6 L737.7,1032.3 L733.9,1031.2 L724.8,1028.4 L631.7,986.0 L631.5,986.0 L625.1,983.9 L566.4,972.9 L566.2,972.9 L541.6,965.4 L541.4,965.3 L515.9,960.4 L507.9,958.9 L490.3,952.2 L490.1,952.2 L456.1,945.7 L445.5,943.7 L445.5,943.7 L427.4,943.2 L392.7,948.9 L384.2,949.3 L321.3,942.1 L164.8,954.4 L113.5,974.2 L111.1,976.1 L111.2,975.7 L113.6,947.3 L112.6,935.6 L105.5,924.6 L91.3,915.1 L83.5,908.2 L80.0,900.8 L82.9,884.2 L91.2,872.5 L104.3,865.6 L133.4,861.1 L136.2,855.1 L135.1,846.2 L135.3,835.9 L136.7,830.9 L138.6,826.3 L141.3,822.1 L144.9,818.0 L150.2,815.3 L150.3,815.2 L153.5,817.7 L154.9,821.9 L154.9,824.1 L155.4,825.6 L159.5,828.0 L159.6,828.1 L164.4,829.0 L166.6,826.1 L167.1,816.5 L168.2,812.6 L170.2,808.1 L175.4,800.0 L185.6,788.8 L190.1,780.6 L181.5,773.7 L180.4,766.1 L185.1,758.8 L194.1,753.2 L219.5,747.1 L231.9,742.6 L237.2,735.3 L242.9,729.9 L256.4,728.9 L269.2,727.9 L276.8,722.2 L273.1,712.2 L262.7,705.1 L255.8,697.1 L262.9,684.5 L272.5,681.8 L282.7,684.8 L292.4,686.2 L300.3,678.7 L298.2,674.0 L293.6,667.4 L292.8,661.6 L302.3,659.1 L309.3,659.2 L313.6,658.5 L315.8,655.6 L317.3,610.8 L319.9,599.9 L322.9,593.3 L324.7,592.6 L327.7,594.6 L345.8,597.7 L352.6,597.3 L355.6,593.8 L354.0,588.6 L350.7,584.0 L347.8,578.9 L347.7,572.1 L349.9,570.3 L359.7,563.9 L363.4,560.3 L360.2,557.1 L355.2,549.0 L351.7,544.6 L338.7,536.1 L335.6,532.9 L333.3,523.1 L335.1,514.4 L338.3,505.5 L339.9,495.5 L341.7,490.9 L349.8,485.5 L351.7,479.6 L337.8,467.8 L335.8,460.6 L339.7,451.4 L359.0,420.7 L361.9,412.5 L363.4,403.1 L360.5,384.7 L360.5,375.4 L365.2,371.3 L374.3,369.5 L387.3,364.6 L397.3,357.7 L396.9,350.0 L388.5,344.6 L379.4,340.4 L372.6,334.6 L371.3,324.3 L377.1,326.2 L381.6,328.7 L384.9,331.9 L386.9,336.1 Z" fill="url(#fill)" stroke="#5aa0d8" stroke-width="3" stroke-linejoin="round" filter="url(#ds)"/><text x="55" y="640" font-family="Oswald,sans-serif" font-weight="600" font-size="24" fill="#3a6db0" transform="rotate(-72 55 640)">RÍO PARAGUAY</text><text x="430" y="1095" font-family="Oswald,sans-serif" font-weight="600" font-size="24" fill="#3a6db0">RÍO PARANÁ</text></svg></div>
+</defs><g opacity="0.95"><path d="M408.5,293.2 L402.6,298.6 L397.1,317.9 L371.3,324.3 L377.1,326.2 L381.6,328.7 L392.0,329.8 L384.9,331.9 L372.6,334.6 L386.9,336.1 L386.9,336.1 L379.4,340.4 L388.5,344.6 L396.9,350.0 L397.3,357.7 L387.3,364.6 L374.3,369.5 L365.2,371.3 L360.5,375.4 L360.5,384.7 L363.4,403.1 L361.9,412.5 L359.0,420.7 L339.7,451.4 L335.8,460.6 L337.8,467.8 L351.7,479.6 L349.8,485.5 L341.7,490.9 L339.9,495.5 L338.3,505.5 L335.1,514.4 L333.3,523.1 L335.6,532.9 L338.7,536.1 L351.7,544.6 L355.2,549.0 L360.2,557.1 L363.4,560.3 L359.7,563.9 L349.9,570.3 L347.7,572.1 L347.8,578.9 L350.7,584.0 L354.0,588.6 L324.7,592.6 L322.9,593.3 L355.6,593.8 L327.7,594.6 L352.6,597.3 L345.8,597.7 L319.9,599.9 L317.3,610.8 L315.8,655.6 L313.6,658.5 L302.3,659.1 L309.3,659.2 L292.8,661.6 L293.6,667.4 L298.2,674.0 L300.3,678.7 L272.5,681.8 L262.9,684.5 L282.7,684.8 L292.4,686.2 L255.8,697.1 L262.7,705.1 L273.1,712.2 L276.8,722.2 L269.2,727.9 L256.4,728.9 L242.9,729.9 L237.2,735.3 L231.9,742.6 L219.5,747.1 L194.1,753.2 L185.1,758.8 L180.4,766.1 L181.5,773.7 L190.1,780.6 L185.6,788.8 L175.4,800.0 L170.2,808.1 L168.2,812.6 L150.3,815.2 L150.2,815.3 L167.1,816.5 L153.5,817.7 L144.9,818.0 L154.9,821.9 L141.3,822.1 L154.9,824.1 L155.4,825.6 L166.6,826.1 L138.6,826.3 L159.5,828.0 L159.6,828.1 L164.4,829.0 L136.7,830.9 L135.3,835.9 L135.1,846.2 L136.2,855.1 L133.4,861.1 L104.3,865.6 L91.2,872.5 L82.9,884.2 L80.0,900.8 L83.5,908.2 L91.3,915.1 L105.5,924.6 L112.6,935.6 L321.3,942.1 L427.4,943.2 L113.6,947.3 L392.7,948.9 L384.2,949.3 L164.8,954.4 L113.5,974.2 L111.2,975.7 L111.1,976.1" fill="none" stroke="#bcd6f5" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M408.5,293.2 L402.6,298.6 L397.1,317.9 L371.3,324.3 L377.1,326.2 L381.6,328.7 L392.0,329.8 L384.9,331.9 L372.6,334.6 L386.9,336.1 L386.9,336.1 L379.4,340.4 L388.5,344.6 L396.9,350.0 L397.3,357.7 L387.3,364.6 L374.3,369.5 L365.2,371.3 L360.5,375.4 L360.5,384.7 L363.4,403.1 L361.9,412.5 L359.0,420.7 L339.7,451.4 L335.8,460.6 L337.8,467.8 L351.7,479.6 L349.8,485.5 L341.7,490.9 L339.9,495.5 L338.3,505.5 L335.1,514.4 L333.3,523.1 L335.6,532.9 L338.7,536.1 L351.7,544.6 L355.2,549.0 L360.2,557.1 L363.4,560.3 L359.7,563.9 L349.9,570.3 L347.7,572.1 L347.8,578.9 L350.7,584.0 L354.0,588.6 L324.7,592.6 L322.9,593.3 L355.6,593.8 L327.7,594.6 L352.6,597.3 L345.8,597.7 L319.9,599.9 L317.3,610.8 L315.8,655.6 L313.6,658.5 L302.3,659.1 L309.3,659.2 L292.8,661.6 L293.6,667.4 L298.2,674.0 L300.3,678.7 L272.5,681.8 L262.9,684.5 L282.7,684.8 L292.4,686.2 L255.8,697.1 L262.7,705.1 L273.1,712.2 L276.8,722.2 L269.2,727.9 L256.4,728.9 L242.9,729.9 L237.2,735.3 L231.9,742.6 L219.5,747.1 L194.1,753.2 L185.1,758.8 L180.4,766.1 L181.5,773.7 L190.1,780.6 L185.6,788.8 L175.4,800.0 L170.2,808.1 L168.2,812.6 L150.3,815.2 L150.2,815.3 L167.1,816.5 L153.5,817.7 L144.9,818.0 L154.9,821.9 L141.3,822.1 L154.9,824.1 L155.4,825.6 L166.6,826.1 L138.6,826.3 L159.5,828.0 L159.6,828.1 L164.4,829.0 L136.7,830.9 L135.3,835.9 L135.1,846.2 L136.2,855.1 L133.4,861.1 L104.3,865.6 L91.2,872.5 L82.9,884.2 L80.0,900.8 L83.5,908.2 L91.3,915.1 L105.5,924.6 L112.6,935.6 L321.3,942.1 L427.4,943.2 L113.6,947.3 L392.7,948.9 L384.2,949.3 L164.8,954.4 L113.5,974.2 L111.2,975.7 L111.1,976.1" fill="none" stroke="url(#riv)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M80.0,900.8 L82.9,884.2 L83.5,908.2 L91.2,872.5 L91.3,915.1 L104.3,865.6 L105.5,924.6 L111.1,976.1 L111.2,975.7 L112.6,935.6 L113.5,974.2 L113.6,947.3 L133.4,861.1 L135.1,846.2 L135.3,835.9 L136.2,855.1 L136.7,830.9 L138.6,826.3 L141.3,822.1 L144.9,818.0 L150.2,815.3 L150.3,815.2 L153.5,817.7 L154.9,821.9 L154.9,824.1 L155.4,825.6 L159.5,828.0 L159.6,828.1 L164.4,829.0 L164.8,954.4 L166.6,826.1 L167.1,816.5 L168.2,812.6 L170.2,808.1 L175.4,800.0 L185.6,788.8 L190.1,780.6 L321.3,942.1 L384.2,949.3 L392.7,948.9 L427.4,943.2 L445.5,943.7 L445.5,943.7 L456.1,945.7 L490.1,952.2 L490.3,952.2 L507.9,958.9 L515.9,960.4 L541.4,965.3 L541.6,965.4 L566.2,972.9 L566.4,972.9 L625.1,983.9 L631.5,986.0 L631.7,986.0 L724.8,1028.4 L733.9,1031.2 L737.7,1032.3 L752.4,1033.6 L790.3,819.9 L794.6,822.0 L810.4,1026.2 L825.5,1026.2 L827.8,1026.7 L840.0,1029.7 L845.1,1032.7 L854.4,1041.0 L854.7,1040.3 L865.2,1002.1 L899.2,836.2 L915.6,840.4 L916.5,871.3 L920.0,849.4" fill="none" stroke="#bcd6f5" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M80.0,900.8 L82.9,884.2 L83.5,908.2 L91.2,872.5 L91.3,915.1 L104.3,865.6 L105.5,924.6 L111.1,976.1 L111.2,975.7 L112.6,935.6 L113.5,974.2 L113.6,947.3 L133.4,861.1 L135.1,846.2 L135.3,835.9 L136.2,855.1 L136.7,830.9 L138.6,826.3 L141.3,822.1 L144.9,818.0 L150.2,815.3 L150.3,815.2 L153.5,817.7 L154.9,821.9 L154.9,824.1 L155.4,825.6 L159.5,828.0 L159.6,828.1 L164.4,829.0 L164.8,954.4 L166.6,826.1 L167.1,816.5 L168.2,812.6 L170.2,808.1 L175.4,800.0 L185.6,788.8 L190.1,780.6 L321.3,942.1 L384.2,949.3 L392.7,948.9 L427.4,943.2 L445.5,943.7 L445.5,943.7 L456.1,945.7 L490.1,952.2 L490.3,952.2 L507.9,958.9 L515.9,960.4 L541.4,965.3 L541.6,965.4 L566.2,972.9 L566.4,972.9 L625.1,983.9 L631.5,986.0 L631.7,986.0 L724.8,1028.4 L733.9,1031.2 L737.7,1032.3 L752.4,1033.6 L790.3,819.9 L794.6,822.0 L810.4,1026.2 L825.5,1026.2 L827.8,1026.7 L840.0,1029.7 L845.1,1032.7 L854.4,1041.0 L854.7,1040.3 L865.2,1002.1 L899.2,836.2 L915.6,840.4 L916.5,871.3 L920.0,849.4" fill="none" stroke="url(#riv)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M386.9,336.1 L392.0,329.8 L397.1,317.9 L402.6,298.6 L408.5,293.2 L445.8,280.8 L464.9,271.0 L531.3,226.0 L538.7,216.8 L538.8,209.2 L512.2,202.1 L516.6,193.4 L536.7,178.5 L540.2,174.1 L543.5,167.5 L542.9,161.5 L529.8,157.0 L528.1,153.0 L529.8,149.0 L541.9,144.8 L553.9,139.0 L561.7,133.8 L563.7,134.7 L577.5,137.5 L580.4,136.5 L583.6,134.7 L584.3,132.2 L584.5,128.2 L583.8,118.5 L584.2,113.8 L585.6,111.3 L587.9,109.5 L590.6,109.0 L593.6,109.3 L605.1,113.1 L609.0,113.7 L612.5,113.4 L624.7,110.9 L628.3,110.8 L632.1,112.5 L636.6,116.0 L644.4,125.4 L652.2,132.9 L664.8,143.0 L678.2,150.8 L693.4,162.5 L699.4,165.6 L711.1,170.2 L713.6,172.8 L715.5,176.4 L716.3,182.4 L718.1,187.4 L721.2,193.0 L735.7,210.2 L743.3,226.5 L759.3,310.2 L758.6,316.1 L756.1,320.2 L679.8,389.0 L657.6,427.8 L650.9,436.8 L638.6,445.4 L627.3,457.0 L667.9,668.6 L671.5,678.7 L676.6,689.9 L724.2,750.7 L790.3,819.9 L794.6,822.0 L899.2,836.2 L915.6,840.4 L920.0,849.4 L916.5,871.3 L865.2,1002.1 L854.7,1040.3 L854.4,1041.0 L845.1,1032.7 L840.0,1029.7 L827.8,1026.7 L825.5,1026.2 L810.4,1026.2 L752.4,1033.6 L737.7,1032.3 L733.9,1031.2 L724.8,1028.4 L631.7,986.0 L631.5,986.0 L625.1,983.9 L566.4,972.9 L566.2,972.9 L541.6,965.4 L541.4,965.3 L515.9,960.4 L507.9,958.9 L490.3,952.2 L490.1,952.2 L456.1,945.7 L445.5,943.7 L445.5,943.7 L427.4,943.2 L392.7,948.9 L384.2,949.3 L321.3,942.1 L164.8,954.4 L113.5,974.2 L111.1,976.1 L111.2,975.7 L113.6,947.3 L112.6,935.6 L105.5,924.6 L91.3,915.1 L83.5,908.2 L80.0,900.8 L82.9,884.2 L91.2,872.5 L104.3,865.6 L133.4,861.1 L136.2,855.1 L135.1,846.2 L135.3,835.9 L136.7,830.9 L138.6,826.3 L141.3,822.1 L144.9,818.0 L150.2,815.3 L150.3,815.2 L153.5,817.7 L154.9,821.9 L154.9,824.1 L155.4,825.6 L159.5,828.0 L159.6,828.1 L164.4,829.0 L166.6,826.1 L167.1,816.5 L168.2,812.6 L170.2,808.1 L175.4,800.0 L185.6,788.8 L190.1,780.6 L181.5,773.7 L180.4,766.1 L185.1,758.8 L194.1,753.2 L219.5,747.1 L231.9,742.6 L237.2,735.3 L242.9,729.9 L256.4,728.9 L269.2,727.9 L276.8,722.2 L273.1,712.2 L262.7,705.1 L255.8,697.1 L262.9,684.5 L272.5,681.8 L282.7,684.8 L292.4,686.2 L300.3,678.7 L298.2,674.0 L293.6,667.4 L292.8,661.6 L302.3,659.1 L309.3,659.2 L313.6,658.5 L315.8,655.6 L317.3,610.8 L319.9,599.9 L322.9,593.3 L324.7,592.6 L327.7,594.6 L345.8,597.7 L352.6,597.3 L355.6,593.8 L354.0,588.6 L350.7,584.0 L347.8,578.9 L347.7,572.1 L349.9,570.3 L359.7,563.9 L363.4,560.3 L360.2,557.1 L355.2,549.0 L351.7,544.6 L338.7,536.1 L335.6,532.9 L333.3,523.1 L335.1,514.4 L338.3,505.5 L339.9,495.5 L341.7,490.9 L349.8,485.5 L351.7,479.6 L337.8,467.8 L335.8,460.6 L339.7,451.4 L359.0,420.7 L361.9,412.5 L363.4,403.1 L360.5,384.7 L360.5,375.4 L365.2,371.3 L374.3,369.5 L387.3,364.6 L397.3,357.7 L396.9,350.0 L388.5,344.6 L379.4,340.4 L372.6,334.6 L371.3,324.3 L377.1,326.2 L381.6,328.7 L384.9,331.9 L386.9,336.1 Z" fill="url(#fill)" stroke="#5aa0d8" stroke-width="3" stroke-linejoin="round" filter="url(#ds)"/><text x="55" y="640" font-family="Oswald,sans-serif" font-weight="700" font-size="24" fill="#3a6db0" transform="rotate(-72 55 640)">RÍO PARAGUAY</text><text x="430" y="1095" font-family="Oswald,sans-serif" font-weight="700" font-size="24" fill="#3a6db0">RÍO PARANÁ</text></svg></div>
           <div class="map-pin" style="left:28.36%;top:61.94%" data-i="0"><span class="map-tip">Pilar</span><span class="pulse"></span><svg viewBox="0 0 24 34"><path d="M12 0C5.4 0 0 5.4 0 12c0 8.4 12 22 12 22s12-13.6 12-22C24 5.4 18.6 0 12 0z" fill="#E53935"/><circle cx="12" cy="12" r="5" fill="#fff"/></svg></div><div class="map-pin" style="left:28.07%;top:70.78%" data-i="1"><span class="map-tip">Humaitá</span><span class="pulse"></span><svg viewBox="0 0 24 34"><path d="M12 0C5.4 0 0 5.4 0 12c0 8.4 12 22 12 22s12-13.6 12-22C24 5.4 18.6 0 12 0z" fill="#E53935"/><circle cx="12" cy="12" r="5" fill="#fff"/></svg></div><div class="map-pin" style="left:13.48%;top:85.22%" data-i="2"><span class="map-tip">Paso de Patria</span><span class="pulse"></span><svg viewBox="0 0 24 34"><path d="M12 0C5.4 0 0 5.4 0 12c0 8.4 12 22 12 22s12-13.6 12-22C24 5.4 18.6 0 12 0z" fill="#E53935"/><circle cx="12" cy="12" r="5" fill="#fff"/></svg></div>
         </div>
       </div>
@@ -277,7 +296,10 @@ footer{background:#081d0c;color:rgba(255,255,255,.6);padding:54px 0 30px}
       </div>
     </div>
     <div class="about-figure reveal">
-      <img src="assets/nosotros.jpg" alt="Remolcador empujando un convoy de barcazas al atardecer">
+      <picture>
+        <source type="image/webp" srcset="assets/nosotros-640.webp 640w, assets/nosotros-1024.webp 1024w" sizes="(max-width:980px) 100vw, 640px">
+        <img src="assets/nosotros.jpg" width="1024" height="720" alt="Remolcador empujando un convoy de barcazas al atardecer" loading="lazy" decoding="async">
+      </picture>
       <div class="exp-chip"><div class="n">+12</div><div class="t">Años de experiencia</div></div>
     </div>
   </div>
@@ -317,7 +339,7 @@ footer{background:#081d0c;color:rgba(255,255,255,.6);padding:54px 0 30px}
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <a href="#inicio" class="foot-brand"><img src="assets/almar-logo-blanco.png" alt="ALMAR Servicios Fluviales"></a>
+      <a href="#inicio" class="foot-brand"><img src="assets/almar-logo-blanco.png" width="340" height="215" alt="ALMAR Servicios Fluviales" loading="lazy" decoding="async"></a>
       <div class="foot-links"><a href="#servicios">Servicios</a><a href="#zonas">Zonas</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a></div>
     </div>
     <div class="foot-bottom">
@@ -340,7 +362,8 @@ const mapObs=new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.3});
 mapObs.observe(mapwrap);
 const header=document.getElementById('header');
-window.addEventListener('scroll',()=>{header.classList.toggle('scrolled',window.scrollY>40)});
+const onScroll=()=>{header.classList.toggle('scrolled',window.scrollY>40)};
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 const menuBtn=document.getElementById('menuBtn'),navList=document.getElementById('navList');
 menuBtn.addEventListener('click',()=>{menuBtn.classList.toggle('open');navList.classList.toggle('open')});
 navList.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menuBtn.classList.remove('open');navList.classList.remove('open')}));
