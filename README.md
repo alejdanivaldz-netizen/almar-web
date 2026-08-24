@@ -13,6 +13,9 @@ Sitio web institucional de ALMAR Servicios Fluviales (agencia marítima, Paragua
 almar-web/
 ├── index.html              ← toda la página (estructura, estilos y scripts)
 ├── gracias.html            ← página que se muestra después de enviar el formulario
+├── 404.html                ← página de error (Cloudflare la sirve con código 404)
+├── sitemap.xml / robots.txt ← para Google (Search Console)
+├── _headers                ← cabeceras de seguridad y caché (Cloudflare Pages)
 ├── assets/
 │   ├── almar-logo-color.png   ← logo a color, 340px (header al hacer scroll, gracias.html)
 │   ├── almar-logo-blanco.png  ← logo blanco, 340px (header sobre la foto + footer)
@@ -44,6 +47,12 @@ El formulario envía a `avaldz@almarserviciosfluviales.com.py`.
 La PRIMERA vez que alguien envíe el formulario, FormSubmit manda un email de
 activación a esa casilla. Hay que abrirlo y confirmar una sola vez; después
 los mensajes llegan directo.
+
+## SEO local
+- `index.html` tiene un bloque `<script type="application/ld+json">` con los datos de la empresa
+  (teléfono, email, zonas, horario 24/7, servicios). Si cambia el teléfono o el email, actualizalo ahí también.
+- Título y descripción de la página incluyen "agencia marítima", "Pilar" y "Ñeembucú" a propósito.
+- Perfil de Empresa de Google y Search Console: ver la guía entregada por Claude (agosto 2026).
 
 ## Rendimiento (qué NO tocar sin motivo)
 - Las fotos se sirven en WebP con `<picture>`; el celular recibe una versión más liviana.
