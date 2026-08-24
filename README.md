@@ -33,6 +33,8 @@ Todo está en `index.html`. Buscá el texto que querés cambiar y reemplazalo:
 - **Años de experiencia:** buscá `+12` y `más de 12 años`.
 - **Servicios:** sección `<section class="services"`, cada tarjeta es un `<div class="card ...">`.
 - **Footer / datos legales:** buscá `RUC 7914978-2`.
+- **Mapa de zonas:** es un SVG generado con `tools/make_map.py` a partir de límites oficiales
+  (ver `tools/README.md`). Los pines se posicionan en % (`.map-pin`), valores en `pins.json`.
 - **Cambiar una foto:** cada foto existe en varias versiones (`.webp` en dos tamaños + `.jpg`).
   Lo más simple es pedirle a Claude que la reemplace pasándole la foto nueva; genera
   todas las versiones y las deja con los mismos nombres.
