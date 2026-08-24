@@ -18,6 +18,13 @@ neem = deps['ÑEEMBUCU']
 neighbors = {n: g for n, g in deps.items() if n != 'ÑEEMBUCU'}
 argentina = {f['properties']['shapeName']: geom(f) for f in arg1 if f['properties']['shapeName'] in ('Chaco', 'Corrientes', 'Formosa')}
 
+# Rutas (Natural Earth 10m; sin nombres, identificadas por id)
+roads = {f['properties']['rwdb_rd_id']: shape(f['geometry']) for f in load('roads_local.geojson')}
+PY04 = [roads[69375], roads[69467]]          # San Ignacio–Pilar y Pilar–Humaitá–Paso de Patria
+PY_SEC = [roads[69501]]                      # Paso de Patria–Cerrito hacia el este
+ARG_ROADS = [g for i, g in roads.items() if i not in (69375, 69467, 69501)]
+OPER = ('Pilar', 'Humaita', 'Paso De Patria')
+
 # Distritos de Ñeembucú: centroide dentro del departamento
 districts = {}
 for f in pry2:
@@ -118,9 +125,25 @@ for n, g in neighbors.items():
     svg.append(f'<path d="{path(gg)}" fill="#E1EBE3" stroke="#fff" stroke-width="1.5"/>')
 # Ñeembucú
 svg.append(f'<path d="{path(neem)}" fill="url(#nfill)" stroke="#1B5E20" stroke-width="3" stroke-linejoin="round" filter="url(#nsh)"/>')
-# Distritos
+# Distritos donde opera ALMAR (relleno más intenso)
+for n in OPER:
+    svg.append(f'<path d="{path(districts[n])}" fill="#A9D4B4" stroke="none"/>')
+# Límites distritales
 for n, g in districts.items():
     svg.append(f'<path d="{path(g)}" fill="none" stroke="#fff" stroke-width="1.4" stroke-opacity=".85" stroke-linejoin="round"/>')
+# Rutas argentinas (contexto, muy tenues)
+for g in ARG_ROADS:
+    svg.append(f'<path d="{linepath(g.simplify(0.004))}" fill="none" stroke="#CBD0C8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>')
+# Ruta secundaria
+for g in PY_SEC:
+    d = linepath(g.simplify(0.003))
+    svg.append(f'<path d="{d}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>')
+    svg.append(f'<path d="{d}" fill="none" stroke="#B8A98C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>')
+# Ruta PY04
+for g in PY04:
+    d = linepath(g.simplify(0.003))
+    svg.append(f'<path d="{d}" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>')
+    svg.append(f'<path d="{d}" fill="none" stroke="#A8935F" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>')
 # Ríos
 for group in (paraguay, parana):
     for l in group:
@@ -131,9 +154,9 @@ svg.append('</g>')
 
 # Etiquetas de vecinos (posiciones fijas)
 FONT = "font-family=\"'Barlow Condensed','Oswald',sans-serif\""
-fixed = [('FORMOSA', (-58.48, -26.10), '#7A8580', 24), ('CHACO', (-58.62, -26.92), '#7A8580', 24), ('CORRIENTES', (-57.60, -27.47), '#7A8580', 24),
-         ('ARGENTINA', (-58.48, -26.25), '#6B766F', 34),
-         ('MISIONES', (-57.20, -26.85), '#6E8A74', 24), ('PARAGUARÍ', (-57.24, -26.28), '#6E8A74', 24), ('CENTRAL', (-57.66, -25.72), '#6E8A74', 24)]
+fixed = [('FORMOSA', (-58.52, -26.00), '#7A8580', 24), ('CHACO', (-58.62, -26.92), '#7A8580', 24), ('CORRIENTES', (-57.60, -27.47), '#7A8580', 24),
+         ('ARGENTINA', (-58.52, -26.35), '#6B766F', 34),
+         ('MISIONES', (-57.24, -26.74), '#6E8A74', 24), ('PARAGUARÍ', (-57.22, -26.06), '#6E8A74', 24), ('CENTRAL', (-57.55, -25.70), '#6E8A74', 24)]
 for text, (lon, lat), col, fs in fixed:
     x, y = P(lon, lat)
     svg.append(f'<text x="{x:.0f}" y="{y:.0f}" {FONT} font-weight="600" font-size="{fs}" letter-spacing="3" fill="{col}" text-anchor="middle">{text}</text>')
@@ -149,14 +172,59 @@ def rot_label(pts, text, pick, p1, p2, dx, dy, fs=26):
     if ang < -90: ang += 180
     svg.append(f'<text transform="translate({c[0]+dx:.0f},{c[1]+dy:.0f}) rotate({ang:.1f})" {FONT} font-weight="700" font-size="{fs}" letter-spacing="3" fill="#2F6BBF" text-anchor="middle">{text}</text>')
 pp = para_pts
-rot_label(pp, 'RÍO PARAGUAY', nearest(pp, lambda p: abs(p[1]+26.35)), nearest(pp, lambda p: abs(p[1]+26.65)), nearest(pp, lambda p: abs(p[1]+26.05)), -46, 0)
+rot_label(pp, 'RÍO PARAGUAY', nearest(pp, lambda p: abs(p[1]+26.55)), nearest(pp, lambda p: abs(p[1]+26.80)), nearest(pp, lambda p: abs(p[1]+26.30)), -48, 0)
 pn = parana_pts
 rot_label(pn, 'RÍO PARANÁ', nearest(pn, lambda p: abs(p[0]+58.18)), nearest(pn, lambda p: abs(p[0]+58.40)), nearest(pn, lambda p: abs(p[0]+57.95)), 0, 46)
 
-# Nombre del departamento + distritos label small
-cx, cy = P(-57.85, -26.75); cx -= 110; cy += 40
-svg.append(f'<text x="{cx+110:.0f}" y="{cy-40:.0f}" {FONT} font-weight="700" font-size="46" letter-spacing="6" fill="#1B5E20" fill-opacity=".85" text-anchor="middle">ÑEEMBUCÚ</text>')
-svg.append(f'<text x="{cx+110:.0f}" y="{cy-8:.0f}" {FONT} font-weight="600" font-size="20" letter-spacing="4" fill="#2D7D32" fill-opacity=".8" text-anchor="middle">DEPARTAMENTO · PARAGUAY</text>')
+# Etiquetas de distritos (los grandes; los de operación llevan el nombre de la ciudad)
+LABELS = {'San Juan Bautista De Ñeembucu': 'S. J. BAUTISTA', 'General Diaz': 'GRAL. DÍAZ', 'Guazu Cua': 'GUAZÚ CUÁ', 'Isla Umbu': 'ISLA UMBÚ',
+          'Los Laureles': 'LAURELES', 'Mayor Martinez': 'MAYOR MARTÍNEZ', 'Villalbin': 'VILLALBÍN'}
+for n, g in districts.items():
+    if n in OPER: continue
+    if g.area < 0.02: continue
+    p = g.representative_point(); x, y = P(p.x, p.y)
+    svg.append(f'<text class="map-detail" x="{x:.0f}" y="{y:.0f}" {FONT} font-weight="600" font-size="15" letter-spacing="1.5" fill="#3F6A47" fill-opacity=".9" text-anchor="middle">{LABELS.get(n, n.upper())}</text>')
+
+# Escudos PY04
+def shield(lon, lat, text='PY04'):
+    x, y = P(lon, lat)
+    svg.append(f'<rect x="{x-27:.0f}" y="{y-12:.0f}" width="54" height="24" rx="6" fill="#fff" stroke="#A8935F" stroke-width="2"/>')
+    svg.append(f'<text x="{x:.0f}" y="{y+6:.0f}" {FONT} font-weight="700" font-size="16" letter-spacing="1" fill="#6E5F3A" text-anchor="middle">{text}</text>')
+shield(-57.75, -26.72)
+shield(-58.50, -27.15)
+
+# Ciudad de Formosa (referencia del lado argentino)
+fx, fy = P(-58.183, -26.173)
+svg.append(f'<circle cx="{fx:.0f}" cy="{fy:.0f}" r="5" fill="#8A948E"/><text x="{fx-12:.0f}" y="{fy+6:.0f}" {FONT} font-weight="600" font-size="18" fill="#6B766F" text-anchor="end">Formosa</text>')
+
+# Leyenda
+lx, ly = 706, 400
+svg.append('<g class="map-detail">')
+svg.append(f'<rect x="{lx}" y="{ly}" width="266" height="196" rx="12" fill="#fff" fill-opacity=".9" stroke="#D8E3DA"/>')
+items = [
+  ('rect', '#A9D4B4', '#1B5E20', 'Distritos donde operamos'),
+  ('rect', '#C9E4CF', '#1B5E20', 'Departamento de Ñeembucú'),
+  ('pin', None, None, 'Puntos de atención'),
+  ('line', '#4A86D6', None, 'Ríos navegables'),
+  ('line', '#A8935F', None, 'Ruta PY04'),
+  ('line', '#fff', '#B9C9BC', 'Límite distrital'),
+]
+for i, (kind, fill, stroke, text) in enumerate(items):
+    yy = ly + 28 + i * 28
+    if kind == 'rect':
+        svg.append(f'<rect x="{lx+16}" y="{yy-9}" width="26" height="18" rx="3" fill="{fill}" stroke="{stroke}" stroke-width="1.5"/>')
+    elif kind == 'line':
+        bg = stroke or fill
+        svg.append(f'<line x1="{lx+16}" y1="{yy}" x2="{lx+42}" y2="{yy}" stroke="{bg}" stroke-width="{6 if stroke else 5}" stroke-linecap="round"/>')
+        if stroke: svg.append(f'<line x1="{lx+16}" y1="{yy}" x2="{lx+42}" y2="{yy}" stroke="{fill}" stroke-width="2.5" stroke-linecap="round"/>')
+    else:
+        svg.append(f'<g transform="translate({lx+29},{yy+8}) scale(.62)"><path d="M0,-34C-6.6,-34 -12,-28.6 -12,-22c0,8.4 12,22 12,22s12,-13.6 12,-22C12,-28.6 6.6,-34 0,-34z" fill="#E53935"/><circle cy="-22" r="5" fill="#fff"/></g>')
+    svg.append(f'<text x="{lx+56}" y="{yy+6}" {FONT} font-weight="600" font-size="17" fill="#2F4A35">{text}</text>')
+svg.append('</g>')
+
+# Bloque de título (arriba a la izquierda)
+svg.append(f'<text x="34" y="74" {FONT} font-weight="700" font-size="50" letter-spacing="5" fill="#1B5E20">ÑEEMBUCÚ</text>')
+svg.append(f'<text x="36" y="104" {FONT} font-weight="600" font-size="19" letter-spacing="3.5" fill="#2D7D32">DEPARTAMENTO · PARAGUAY</text>')
 
 # Ciudades: punto + etiqueta (el pin animado va en HTML)
 for p in pins:
@@ -183,7 +251,7 @@ svg.append(f'<path d="{ipath(neem.simplify(0.01))}" fill="#2D7D32" stroke="#1B5E
 svg.append(f'<text x="{ix+IW/2:.0f}" y="{iy+IH-8:.0f}" {FONT} font-weight="600" font-size="15" letter-spacing="2" fill="#5B6E60" text-anchor="middle">PARAGUAY</text>')
 
 # Norte
-nx, ny = 46, 60
+nx, ny = 56, 175
 svg.append(f'<g transform="translate({nx},{ny})"><path d="M0,-26 L9,10 L0,4 L-9,10 Z" fill="#1B5E20"/><text y="30" {FONT} font-weight="700" font-size="18" fill="#1B5E20" text-anchor="middle">N</text></g>')
 
 # Escala (~20 km)
