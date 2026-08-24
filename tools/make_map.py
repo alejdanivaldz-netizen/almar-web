@@ -18,11 +18,6 @@ neem = deps['ÑEEMBUCU']
 neighbors = {n: g for n, g in deps.items() if n != 'ÑEEMBUCU'}
 argentina = {f['properties']['shapeName']: geom(f) for f in arg1 if f['properties']['shapeName'] in ('Chaco', 'Corrientes', 'Formosa')}
 
-# Rutas (Natural Earth 10m; sin nombres, identificadas por id)
-roads = {f['properties']['rwdb_rd_id']: shape(f['geometry']) for f in load('roads_local.geojson')}
-PY04 = [roads[69375], roads[69467]]          # San Ignacio–Pilar y Pilar–Humaitá–Paso de Patria
-PY_SEC = [roads[69501]]                      # Paso de Patria–Cerrito hacia el este
-ARG_ROADS = [g for i, g in roads.items() if i not in (69375, 69467, 69501)]
 OPER = ('Pilar', 'Humaita', 'Paso De Patria')
 
 # Distritos de Ñeembucú: centroide dentro del departamento
@@ -131,19 +126,6 @@ for n in OPER:
 # Límites distritales
 for n, g in districts.items():
     svg.append(f'<path d="{path(g)}" fill="none" stroke="#fff" stroke-width="1.4" stroke-opacity=".85" stroke-linejoin="round"/>')
-# Rutas argentinas (contexto, muy tenues)
-for g in ARG_ROADS:
-    svg.append(f'<path d="{linepath(g.simplify(0.004))}" fill="none" stroke="#CBD0C8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>')
-# Ruta secundaria
-for g in PY_SEC:
-    d = linepath(g.simplify(0.003))
-    svg.append(f'<path d="{d}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>')
-    svg.append(f'<path d="{d}" fill="none" stroke="#B8A98C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>')
-# Ruta PY04
-for g in PY04:
-    d = linepath(g.simplify(0.003))
-    svg.append(f'<path d="{d}" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>')
-    svg.append(f'<path d="{d}" fill="none" stroke="#A8935F" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>')
 # Ríos
 for group in (paraguay, parana):
     for l in group:
@@ -185,14 +167,6 @@ for n, g in districts.items():
     p = g.representative_point(); x, y = P(p.x, p.y)
     svg.append(f'<text class="map-detail" x="{x:.0f}" y="{y:.0f}" {FONT} font-weight="600" font-size="15" letter-spacing="1.5" fill="#3F6A47" fill-opacity=".9" text-anchor="middle">{LABELS.get(n, n.upper())}</text>')
 
-# Escudos PY04
-def shield(lon, lat, text='PY04'):
-    x, y = P(lon, lat)
-    svg.append(f'<rect x="{x-27:.0f}" y="{y-12:.0f}" width="54" height="24" rx="6" fill="#fff" stroke="#A8935F" stroke-width="2"/>')
-    svg.append(f'<text x="{x:.0f}" y="{y+6:.0f}" {FONT} font-weight="700" font-size="16" letter-spacing="1" fill="#6E5F3A" text-anchor="middle">{text}</text>')
-shield(-57.75, -26.72)
-shield(-58.50, -27.15)
-
 # Ciudad de Formosa (referencia del lado argentino)
 fx, fy = P(-58.183, -26.173)
 svg.append(f'<circle cx="{fx:.0f}" cy="{fy:.0f}" r="5" fill="#8A948E"/><text x="{fx-12:.0f}" y="{fy+6:.0f}" {FONT} font-weight="600" font-size="18" fill="#6B766F" text-anchor="end">Formosa</text>')
@@ -200,13 +174,12 @@ svg.append(f'<circle cx="{fx:.0f}" cy="{fy:.0f}" r="5" fill="#8A948E"/><text x="
 # Leyenda
 lx, ly = 706, 400
 svg.append('<g class="map-detail">')
-svg.append(f'<rect x="{lx}" y="{ly}" width="266" height="196" rx="12" fill="#fff" fill-opacity=".9" stroke="#D8E3DA"/>')
+svg.append(f'<rect x="{lx}" y="{ly}" width="266" height="168" rx="12" fill="#fff" fill-opacity=".9" stroke="#D8E3DA"/>')
 items = [
   ('rect', '#A9D4B4', '#1B5E20', 'Distritos donde operamos'),
   ('rect', '#C9E4CF', '#1B5E20', 'Departamento de Ñeembucú'),
   ('pin', None, None, 'Puntos de atención'),
   ('line', '#4A86D6', None, 'Ríos navegables'),
-  ('line', '#A8935F', None, 'Ruta PY04'),
   ('line', '#fff', '#B9C9BC', 'Límite distrital'),
 ]
 for i, (kind, fill, stroke, text) in enumerate(items):
@@ -226,10 +199,12 @@ svg.append('</g>')
 svg.append(f'<text x="34" y="74" {FONT} font-weight="700" font-size="50" letter-spacing="5" fill="#1B5E20">ÑEEMBUCÚ</text>')
 svg.append(f'<text x="36" y="104" {FONT} font-weight="600" font-size="19" letter-spacing="3.5" fill="#2D7D32">DEPARTAMENTO · PARAGUAY</text>')
 
-# Ciudades: punto + etiqueta (el pin animado va en HTML)
-for p in pins:
-    pass
-    svg.append(f'<text x="{p["x"]+20}" y="{p["y"]+8}" {FONT} font-weight="700" font-size="32" fill="#15241A">{p["name"]}</text>')
+# Ciudades: etiqueta + pin animado (CSS en index.html: .map-pin / .pulse)
+PIN = '<path d="M0,-54C-10.6,-54 -19,-45.4 -19,-35c0,13.4 19,35 19,35s19,-21.6 19,-35C19,-45.4 10.6,-54 0,-54z" fill="#E53935"/><circle cy="-35" r="8" fill="#fff"/>'
+for i, p in enumerate(pins):
+    svg.append(f'<text x="{p["x"]+22}" y="{p["y"]+10}" {FONT} font-weight="700" font-size="32" fill="#15241A">{p["name"]}</text>')
+for i, p in enumerate(pins):
+    svg.append(f'<g transform="translate({p["x"]},{p["y"]})"><g class="map-pin" data-i="{i}"><circle class="pulse" cy="-8" r="12" fill="#E53935" fill-opacity=".45"/><g class="pin-body">{PIN}</g></g></g>')
 
 # Inset: Paraguay con Ñeembucú resaltado
 IW, IH = 190, 210
