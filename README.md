@@ -39,8 +39,12 @@ Todo está en `index.html`. Buscá el texto que querés cambiar y reemplazalo:
 - **Mapa de zonas:** es un SVG generado con `tools/make_map.py` a partir de límites oficiales
   (ver `tools/README.md`). Los pines se posicionan en % (`.map-pin`), valores en `pins.json`.
 - **Cambiar una foto:** cada foto existe en varias versiones (`.webp` en dos tamaños + `.jpg`).
-  Lo más simple es pedirle a Claude que la reemplace pasándole la foto nueva; genera
-  todas las versiones y las deja con los mismos nombres.
+  Lo más simple es pedirle a Claude que la reemplace pasándole la foto nueva.
+  OJO: los archivos de `assets/` se guardan en caché del navegador por un día (`_headers`).
+  Si se reemplaza una imagen con el MISMO nombre, la gente puede seguir viendo la vieja hasta
+  un día; para que cambie al instante hay que usar un nombre nuevo (ej. `fundador-2.jpg`)
+  y actualizar la referencia en `index.html`.
+- **Foto del fundador:** `assets/fundador-1.jpg` (288×288, se muestra en escala de grises por CSS).
 
 ## Formulario de contacto (FormSubmit.co)
 El formulario envía a `avaldz@almarserviciosfluviales.com.py`.
