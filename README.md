@@ -20,11 +20,11 @@ almar-web/
 │   ├── almar-logo-color.png   ← logo a color, 340px (header al hacer scroll, gracias.html)
 │   ├── almar-logo-blanco.png  ← logo blanco, 340px (header sobre la foto + footer)
 │   ├── favicon-32.png / favicon-192.png / apple-touch-icon.png  ← íconos de pestaña/celular
-│   ├── hero-1600.webp         ← foto de fondo del inicio (escritorio)
-│   ├── hero-960.webp          ← foto de fondo del inicio (celular)
-│   ├── hero.jpg               ← respaldo para navegadores viejos + imagen al compartir en redes
-│   ├── nosotros-1024.webp / nosotros-640.webp  ← foto de la sección Nosotros
-│   └── nosotros.jpg           ← respaldo de la anterior
+│   ├── hero-2-1600.webp         ← foto de fondo del inicio (escritorio)
+│   ├── hero-2-960.webp          ← foto de fondo del inicio (celular)
+│   ├── hero-2.jpg             ← respaldo para navegadores viejos + imagen al compartir en redes
+│   ├── nosotros-2-1024.webp / nosotros-2-640.webp  ← foto de la sección Nosotros
+│   └── nosotros-2.jpg          ← respaldo de la anterior
 └── README.md
 ```
 
