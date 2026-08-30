@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://almarserviciosfluviales.com.py/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://almarserviciosfluviales.com.py/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://almarserviciosfluviales.com.py/en/"/>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://almarserviciosfluviales.com.py/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://almarserviciosfluviales.com.py/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://almarserviciosfluviales.com.py/en/"/>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

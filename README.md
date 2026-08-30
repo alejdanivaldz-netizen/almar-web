@@ -13,6 +13,8 @@ Sitio web institucional de ALMAR Servicios Fluviales (agencia marítima, Paragua
 almar-web/
 ├── index.html              ← toda la página (estructura, estilos y scripts)
 ├── gracias.html            ← página que se muestra después de enviar el formulario
+├── en/index.html           ← versión en inglés del sitio (selector ES/EN en el menú)
+├── en/thanks.html          ← "gracias" en inglés
 ├── 404.html                ← página de error (Cloudflare la sirve con código 404)
 ├── sitemap.xml / robots.txt ← para Google (Search Console)
 ├── _headers                ← cabeceras de seguridad y caché (Cloudflare Pages)
